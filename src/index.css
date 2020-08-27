@@ -17,3 +17,13 @@ code {
   margin: 0 auto;
   width: 600px;
 }
+.removeBtn{
+  background: red;
+  border-radius: 50%;
+  color: white;
+  border: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
