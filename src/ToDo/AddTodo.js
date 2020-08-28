@@ -1,10 +1,16 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types"
 
+function useInputValue(defaulteValue = '') {
+    const [value, setValue]=useState(defaulteValue);
+    return {
+        value,
+        onChange: event => setValue(event.target.value),
+    }
+}
 
 function AddTodo({onCreate}){
-
-    const [value, setValue]=useState('');
+    const input = defaulteValue('');
     function submitHandler(event){
         event.preventDefault();
         if(value.trim()){
