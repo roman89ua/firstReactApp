@@ -1,29 +1,34 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types"
 
 function useInputValue(defaulteValue = '') {
-    const [value, setValue]=useState(defaulteValue);
+    const [value, setValue] = useState(defaulteValue);
     return {
-        value,
-        onChange: event => setValue(event.target.value),
+        bind: {
+            value,
+            onChange: event => setValue(event.target.value),
+        },
+        clear: () => setValue(''),
+        value: () => value,
+
     }
 }
 
-function AddTodo({onCreate}){
-    const input = defaulteValue('');
-    function submitHandler(event){
+function AddTodo({ onCreate }) {
+    const input = useInputValue('');
+
+    function submitHandler(event) {
         event.preventDefault();
-        if(value.trim()){
-            onCreate(value);
-            setValue('');
+
+        if (input.value().trim()) {
+            onCreate(input.value());
+            input.clear();
         }
-            }
+    }
     return (
-        <form style = {{marginBottom: '1rem'}} onSubmit={submitHandler}>
+        <form style={{ marginBottom: '1rem' }} onSubmit={submitHandler}>
             <input
-                type="text"
-                value={value}
-                onChange={event =>setValue(event.target.value)}
+                {...input.bind}
             />
             <button type="submit">Add task</button>
         </form>
