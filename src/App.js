@@ -13,14 +13,15 @@ function App() {
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
             .then(response => response.json())
-            .then(todos => {
+            .then(responseJson => {
                 setTimeout(() => {
-                    setTodos(todos);
+                    setTodos(responseJson);
                     setLoading(false);
                 }, 2000)
 
             })
     }, [])
+
 
     function toggleTodoItem(id) {
         setTodos(
@@ -32,9 +33,11 @@ function App() {
             })
         )
     }
+
     function removeTodo(id) {
         setTodos(todos.filter((todo) => todo.id !== id))
     }
+
     function addTodo(value) {
         setTodos(todos.concat([{
             id: todos.length + 1,
@@ -42,6 +45,8 @@ function App() {
             title: value,
         }]))
     }
+
+
     return (
         <Context.Provider value={{ removeTodo }}>
             <div className="wrapper">
